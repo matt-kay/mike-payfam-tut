@@ -1,7 +1,11 @@
 import UserContainer from "./components/user/UserContainer";
 
 const App = () => {
-  return <UserContainer />;
+  return (
+    <>
+      <UserContainer />
+    </>
+  );
 };
 
 export default App;

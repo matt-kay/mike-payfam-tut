@@ -1,10 +1,11 @@
+import { Container } from "@mui/material";
 import UserList from "./UserList";
 
 const UserContainer = () => {
   return (
-    <div>
+    <Container>
       <UserList />
-    </div>
+    </Container>
   );
 };
 

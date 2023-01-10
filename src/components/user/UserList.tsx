@@ -1,3 +1,4 @@
+import { Grid } from "@mui/material";
 import { Fragment, useEffect, useState } from "react";
 import { IUserDocument } from "../../types/user-types";
 import UserListItem from "./UserListItem";
@@ -28,13 +29,13 @@ const UserList = () => {
     <div>
       {loading && <b>Loading...</b>}
       {!loading && users && (
-        <>
+        <Grid container spacing={2}>
           {users.map((user) => (
-            <Fragment key={user.id}>
+            <Grid item xs={6} md={3} key={user.id}>
               <UserListItem user={user} />
-            </Fragment>
+            </Grid>
           ))}
-        </>
+        </Grid>
       )}
     </div>
   );
