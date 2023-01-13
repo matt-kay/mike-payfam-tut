@@ -1,36 +1,41 @@
-import { Grid } from "@mui/material";
-import { Fragment, useEffect, useState } from "react";
+import { Grid, Stack, Typography, Button } from "@mui/material";
+import { useEffect, useState } from "react";
+import { store } from "../../db/store";
+import { userActions } from "../../db/user-slice";
+import { useAppSelector } from "../../hooks/db-hooks";
 import { IUserDocument } from "../../types/user-types";
 import UserListItem from "./UserListItem";
 
 const UserList = () => {
-  const [loading, setLoading] = useState(false);
-  const [users, setUsers] = useState<IUserDocument[] | undefined>(undefined);
+  const users = useAppSelector((state) => state.users);
+  // const [list, setList] = useState<IUserDocument[]>([])
 
-  useEffect(() => {
-    (async () => {
-      setLoading(true);
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/users"
-      );
-      const json = await response.json();
-
-      if (json) {
-        const _list = json as IUserDocument[];
-
-        setUsers(_list);
-      }
-
-      setLoading(false);
-    })();
-  }, []);
+  // useEffect(() => {
+  //   if(users)
+  // }, [users])
+  
 
   return (
     <div>
-      {loading && <b>Loading...</b>}
-      {!loading && users && (
+      {users.list.length === 0 && (
+        <Stack alignItems="center">
+          <Typography variant="h1" color="error">
+            No users available
+          </Typography>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => {
+              store.dispatch(userActions.setFetchData(true));
+            }}
+          >
+            fetch users
+          </Button>
+        </Stack>
+      )}
+      {users.list.length > 0 && (
         <Grid container spacing={2}>
-          {users.map((user) => (
+          {users.list.map((user) => (
             <Grid item xs={6} md={3} key={user.id}>
               <UserListItem user={user} />
             </Grid>

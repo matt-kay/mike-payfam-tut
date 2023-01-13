@@ -1,4 +1,4 @@
-import { Icon, Paper, Stack } from "@mui/material";
+import { Paper, Stack } from "@mui/material";
 import { IUserDocument } from "../../types/user-types";
 import UserListItemAddress from "./UserListItemAddress";
 import UserListItemCompany from "./UserListItemCompany";
